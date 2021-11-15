@@ -1,4 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~alertifyjs/build/css/alertify.min.css";
+@import "~alertifyjs/build/css/themes/bootstrap.rtl.min.css";
+:root {
+  --template-background-primary: rgb(243, 248, 255); //F3F8FF
+  --template-primary: rgb(222, 236, 255); //DEECFF
+  --template-secondary: rgb(198, 207, 255); //C6CFFF
+  --template-background-secondary: rgb(232, 211, 255); //E8D3FF
+  --template-text-color: rgb(69 69 69)
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--template-background-primary);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+p {
+  margin: 0;
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.card {
+  all: unset;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  background-color: #fafafa;
+  height: 40px;
+  width: 200px;
+  margin: 0 8px 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  line-height: 24px;
+  &:hover {
+    transform: translateY(-3 px);
+    box-shadow: 0 4px 17px rgb(0 0 0 / 35%);
+  }
+}
