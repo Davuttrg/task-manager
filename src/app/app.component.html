@@ -1,7 +1,6 @@
-
 <!-- Toolbar -->
-<div class="toolbar" >
-  <div class="left-side" [routerLink]="['/']">
+<div class="toolbar">
+  <div class="left-side" [routerLink]="me ? ['/'] : ['/login']">
     <img
       width="40"
       alt="Angular Logo"
@@ -10,7 +9,24 @@
     <span>Task Manager</span>
   </div>
   <div class="right-side">
+    <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+    <div class="menu-section" *ngIf="me && !loading">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <div mat-menu-item>
+          <mat-icon>perm_identity</mat-icon>
+          <span>{{ me.email }}</span>
+        </div>
+        <button mat-menu-item (click)="logOut()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
     <action-icon
+      *ngIf="!me && !loading"
       text="Login"
       icon="person"
       (clickAction)="login()"

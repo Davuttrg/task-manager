@@ -6,7 +6,7 @@
   --template-primary: rgb(222, 236, 255); //DEECFF
   --template-secondary: rgb(198, 207, 255); //C6CFFF
   --template-background-secondary: rgb(232, 211, 255); //E8D3FF
-  --template-text-color: rgb(69 69 69)
+  --template-text-color: rgb(69 69 69);
 }
 
 html,
@@ -15,6 +15,7 @@ body {
 }
 body {
   margin: 0;
+  // background-image: url("/assets/Multitasking_2.jpg");
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: var(--template-background-primary);
 }
@@ -56,4 +57,15 @@ p {
     transform: translateY(-3 px);
     box-shadow: 0 4px 17px rgb(0 0 0 / 35%);
   }
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+.center-spinner {
+  position: absolute !important;
+  top: 0;
+  left: 0%;
+  transform: translate(-50%, -50%);
 }

@@ -1,18 +1,31 @@
 import { Injectable } from '@angular/core';
 import jwt_decode from 'jwt-decode';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from 'firebase/auth';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   constructor() {}
+  me: any;
+  $getactiveUser = new Subject();
+  getactiveUser() {
+    this.$getactiveUser.next(this.me);
+  }
   isLoggedIn(): Observable<boolean> {
-    return of(true);
-    // let decodedToken = this.getDecodeToken();
-    // if (decodedToken && new Date() < new Date(decodedToken.exp * 1000)) {
-    //   return of(true);
-    // }
-    // return of(false);
+    // return of(true);
+    let decodedToken = this.getDecodeToken();
+    if (decodedToken && new Date() < new Date(decodedToken.exp * 1000)) {
+      return of(true);
+    }
+    return of(false);
   }
 
   getDecodeToken(): any {
@@ -24,7 +37,66 @@ export class AuthService {
     }
     return decoded;
   }
-  logout(){
-    localStorage.clear();
+  register(user: { email: string; password: string }) {
+    let auth = getAuth();
+    return createUserWithEmailAndPassword(auth, user.email, user.password);
+  }
+  login(user: { email: string; password: string }) {
+    const auth = getAuth();
+    return signInWithEmailAndPassword(auth, user.email, user.password);
+  }
+  getState() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.me = user;
+        this.$getactiveUser.next(this.me);
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        // ...
+      } else {
+        this.$getactiveUser.next(null);
+        // User is signed out
+        // ...
+      }
+    });
+  }
+  logOut() {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        this.me = undefined;
+        localStorage.removeItem('auth_token');
+        this.$getactiveUser.next(null);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+}
+export namespace ErroAuthEn {
+  export function convertMessage(code: string): string {
+    console.log(code);
+    switch (code) {
+      case 'auth/user-disabled': {
+        return 'Sorry your user is disabled';
+      }
+      case 'auth/user-not-found': {
+        return 'Sorry user not found';
+      }
+      case 'auth/invalid-email': {
+        return 'Invalid Email';
+      }
+      case 'auth/internal-error': {
+        return 'Missing Fields';
+      }
+      case 'auth/wrong-password': {
+        return 'Wrong Password';
+      }
+      default: {
+        return 'Login error try again later';
+      }
+    }
   }
 }

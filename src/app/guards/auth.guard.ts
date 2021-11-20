@@ -34,9 +34,9 @@ export class AuthGuard implements CanActivate {
         if (response) {
           return true;
         }
-        this._alertify.error("Authorization Fail")
-        this._router.navigate(['/']);
-        this._authService.logout();
+        this._alertify.error('Authorization Fail');
+        this._router.navigate(['/login']);
+        this._authService.logOut();
         return false;
       })
     );

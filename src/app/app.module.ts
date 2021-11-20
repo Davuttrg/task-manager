@@ -14,7 +14,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { environment } from '../environments/environment';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import * as firebase from 'firebase/app';
+import { BoardComponent } from './pages/board/board.component';
+import { MatMenuModule } from '@angular/material/menu';
 
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
@@ -22,6 +29,7 @@ import { MatInputModule } from '@angular/material/input';
     LoginComponent,
     ActionIconComponent,
     HomeComponent,
+    BoardComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +41,10 @@ import { MatInputModule } from '@angular/material/input';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatMenuModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
