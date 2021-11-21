@@ -8,12 +8,13 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  constructor(private _firebase: FirebaseService) {}
   me: any;
   $getactiveUser = new Subject();
   getactiveUser() {
@@ -47,18 +48,13 @@ export class AuthService {
   }
   getState() {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        this.me = user;
+        let fireUser = await this._firebase.getUser(user.uid);
+        this.me = fireUser;
         this.$getactiveUser.next(this.me);
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        // ...
       } else {
         this.$getactiveUser.next(null);
-        // User is signed out
-        // ...
       }
     });
   }
@@ -72,6 +68,8 @@ export class AuthService {
       })
       .catch((error) => {
         console.log(error);
+        localStorage.removeItem('auth_token');
+        this.$getactiveUser.next(null);
       });
   }
 }

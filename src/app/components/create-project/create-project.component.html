@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Create Project</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [formControl]="name" />
+    <mat-icon matSuffix>create</mat-icon>
+    <mat-error *ngIf="name.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="name" cdkFocusInitial>Create</button>
+</mat-dialog-actions>

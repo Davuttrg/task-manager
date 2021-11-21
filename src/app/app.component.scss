@@ -13,7 +13,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 90px;
+  height: var(--toolbar-height);
   display: flex;
   align-items: center;
   color: var(--template-text-color);
@@ -21,29 +21,44 @@
   justify-content: space-between;
   padding: 0 30px;
   box-shadow: 0 4px 19px -18px #000;
+  background: var(--template-background-primary);
   .left-side {
     display: flex;
     align-items: center;
     cursor: pointer;
-  }
-  .right-side {
-    &:hover {
-      opacity: 0.8;
+    img {
+      margin: 0 16px;
+      filter: grayscale(100%);
     }
   }
-  img {
-    margin: 0 16px;
-    filter: grayscale(100%);
+  .right-side {
+    .sections {
+      display: flex;
+      align-items: center;
+      > div {
+        padding-right: 20px;
+      }
+      .profile-image {
+        display: flex;
+        align-items: center;
+        img {
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          margin-left: -10px;
+        }
+      }
+    }
   }
 }
-
 .content {
   display: flex;
-  margin: 112px auto 32px;
+  margin: var(--toolbar-height) auto 32px;
   padding: 0 16px;
   max-width: 960px;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .card-container .card:not(:last-child) {

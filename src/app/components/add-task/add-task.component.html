@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Create Task</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" [formControl]="name" />
+    <mat-icon matSuffix>create</mat-icon>
+    <mat-error *ngIf="name.invalid">{{ getErrorMessage("name") }}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput [formControl]="description"></textarea>
+    <mat-icon matSuffix>create</mat-icon>
+    <mat-error *ngIf="description.invalid">{{
+      getErrorMessage("description")
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Assignee</mat-label> 
+    <mat-select [formControl]="user" >
+      <mat-option class="option-with-img"  *ngFor="let user of data.users" [value]="user.uid">
+        {{user.email}}
+        <img [src]="getAvatar(user.email)" alt="">
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="close()" cdkFocusInitial>Create</button>
+</mat-dialog-actions>

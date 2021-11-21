@@ -71,7 +71,7 @@
             >Please enter valid password</mat-error
           >
         </mat-form-field>
-        <!-- <mat-form-field appearance="outline" class="w-100">
+        <mat-form-field appearance="outline" class="w-100">
           <mat-label>Gender</mat-label>
           <mat-select formControlName="gender">
             <mat-option value="male">Male</mat-option>
@@ -79,10 +79,10 @@
             <mat-option value="other">Other</mat-option>
           </mat-select>
           <mat-icon matSuffix>male</mat-icon>
-        </mat-form-field> -->
+        </mat-form-field>
         <mat-spinner diameter="36" *ngIf="loadings.register"></mat-spinner>
         <button mat-stroked-button>
-          {{ loadings.login ? "" : "Register" }}
+          {{ loadings.register ? "" : "Register" }}
         </button>
       </form>
     </mat-tab>

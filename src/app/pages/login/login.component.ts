@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { map, take } from 'rxjs/operators';
 import { AlertifyService } from 'src/app/services/alertify.service';
 import { AuthService, ErroAuthEn } from 'src/app/services/auth.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _auth: AuthService,
     private _alertify: AlertifyService,
-    private _router: Router
+    private _router: Router,
+    private _firebase: FirebaseService
   ) {}
 
   ngOnInit(): void {
@@ -43,18 +45,20 @@ export class LoginComponent implements OnInit {
     this.registerForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      // gender: [''],
+      gender: [''],
     });
   }
 
   login(formData: any) {
+    if (this.loginForm.invalid) return;
     this.loadings.login = true;
     this._auth
       .login(formData)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user as any;
-        this._auth.me = user;
+        let fireUser = await this._firebase.getUser(user.uid);
+        this._auth.me = fireUser;
         localStorage.setItem('auth_token', user.accessToken);
         console.log('user :', user);
         this._alertify.success('Login Success');
@@ -70,15 +74,21 @@ export class LoginComponent implements OnInit {
       });
   }
   register(formData: any) {
+    if (this.registerForm.invalid) return;
     this.loadings.register = true;
-
     this._auth
       .register(formData)
-      .then((userCredential) => {
-        // Signed in
+      .then(async (userCredential) => {
+        formData['username'] = formData['email'].split('@')[0];
+        formData['uid'] = userCredential.user.uid;
+        delete formData['password'];
+        await this._firebase.addData('user', formData);
         const user = userCredential.user as any;
-        this._auth.me = user;
+        let fireUser = await this._firebase.getUser(user.uid);
+        console.log('fireUser :', fireUser);
+        this._auth.me = fireUser;
         localStorage.setItem('auth_token', user.accessToken);
+
         this.loadings.register = false;
         this._alertify.success('Registiration Success');
         setTimeout(() => {

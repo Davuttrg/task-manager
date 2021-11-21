@@ -3,14 +3,21 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './pages/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-import { HomeComponent } from './pages/home/home.component';
 import { BoardComponent } from './pages/board/board.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'board', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'board', component: BoardComponent, canActivate: [AuthGuard] },
+  { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'board',
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: BoardComponent },
+      { path: ':id', component: BoardComponent },
+    ],
+  },
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 <!-- Toolbar -->
 <div class="toolbar">
-  <div class="left-side" [routerLink]="me ? ['/'] : ['/login']">
+  <div class="left-side" [routerLink]="me ? ['/board'] : ['/login']">
     <img
       width="40"
       alt="Angular Logo"
@@ -9,38 +9,79 @@
     <span>Task Manager</span>
   </div>
   <div class="right-side">
-    <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
-    <div class="menu-section" *ngIf="me && !loading">
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>account_circle</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu" xPosition="before">
-        <div mat-menu-item>
-          <mat-icon>perm_identity</mat-icon>
-          <span>{{ me.email }}</span>
+    <div class="sections">
+      <div class="projects" *ngIf="me && !loading">
+        <div class="menu-section">
+          <action-icon
+            icon="expand_more"
+            text="Projects"
+            [matMenuTriggerFor]="projectMenu"
+            mat-icon-button
+          ></action-icon>
+
+          <mat-menu
+            class="project-popup"
+            #projectMenu="matMenu"
+            yPosition="below"
+          >
+            <div class="recent">Recent</div>
+            <button
+              class="project-item"
+              *ngFor="let project of projects"
+              mat-menu-item
+              [routerLink]="['/board', project.uid]"
+            >
+              <mat-icon>work</mat-icon>
+              <span>{{ project.name }}</span>
+            </button>
+            <div class="additional"></div>
+            <button
+              class="additional-item"
+              mat-menu-item
+              (click)="createProject()"
+            >
+              <mat-icon>add</mat-icon>
+              <span>Create Project</span>
+            </button>
+            <button
+              class="additional-item"
+              mat-menu-item
+              [routerLink]="['/projects']"
+            >
+              <mat-icon>north_east</mat-icon>
+              <span>View All Projects</span>
+            </button>
+          </mat-menu>
         </div>
-        <button mat-menu-item (click)="logOut()">
-          <mat-icon>logout</mat-icon>
-          <span>Logout</span>
-        </button>
-      </mat-menu>
+      </div>
+      <div class="profile">
+        <mat-spinner diameter="30" *ngIf="loading"></mat-spinner>
+        <div class="menu-section" *ngIf="me && !loading">
+          <div class="profile-image">
+            <button mat-button [matMenuTriggerFor]="profileMenu">Profile</button>
+            <img [src]="getAvatar()" alt="" />
+          </div>
+          <mat-menu #profileMenu="matMenu" xPosition="before">
+            <div mat-menu-item>
+              <mat-icon>perm_identity</mat-icon>
+              <span>{{ me.email }}</span>
+            </div>
+            <button mat-menu-item (click)="logOut()">
+              <mat-icon>logout</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+        </div>
+        <action-icon
+          *ngIf="!me && !loading"
+          text="Login"
+          icon="person"
+          (clickAction)="login()"
+        ></action-icon>
+      </div>
     </div>
-    <action-icon
-      *ngIf="!me && !loading"
-      text="Login"
-      icon="person"
-      (clickAction)="login()"
-    ></action-icon>
   </div>
 </div>
 <div class="content">
   <router-outlet></router-outlet>
 </div>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

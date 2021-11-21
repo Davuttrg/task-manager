@@ -7,6 +7,7 @@
   --template-secondary: rgb(198, 207, 255); //C6CFFF
   --template-background-secondary: rgb(232, 211, 255); //E8D3FF
   --template-text-color: rgb(69 69 69);
+  --toolbar-height: 90px;
 }
 
 html,
@@ -15,6 +16,7 @@ body {
 }
 body {
   margin: 0;
+  height: calc(100vh - var(--toolbar-height));
   // background-image: url("/assets/Multitasking_2.jpg");
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: var(--template-background-primary);
@@ -41,23 +43,34 @@ p {
 .card {
   all: unset;
   border-radius: 4px;
-  border: 1px solid #eee;
-  background-color: #fafafa;
-  height: 40px;
-  width: 200px;
-  margin: 0 8px 16px;
+  background-color: var(--template-background-primary);
+  margin: 8px;
   padding: 16px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.2s ease-in-out;
-  line-height: 24px;
+  // transition: all 0.2s ease-in-out;
+  cursor: move;
+  // all: unset;
+  // border-radius: 4px;
+  // border: 1px solid #eee;
+  // background-color: #fafafa;
+  // height: 40px;
+  // width: 200px;
+  // margin: 0 8px 16px;
+  // padding: 16px;
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: center;
+  // align-items: center;
+  // transition: all 0.2s ease-in-out;
+  // line-height: 24px;
+  transition: all 0.1s ease;
   &:hover {
-    transform: translateY(-3 px);
-    box-shadow: 0 4px 17px rgb(0 0 0 / 35%);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgb(173 173 173 / 35%);
   }
 }
+
 .form {
   display: flex;
   flex-direction: column;
@@ -68,4 +81,46 @@ p {
   top: 0;
   left: 0%;
   transform: translate(-50%, -50%);
+}
+
+.project-popup {
+  padding: 5px 10px;
+  .recent {
+    padding: 0 5px;
+  }
+  .project-item {
+    padding-left: 20px;
+  }
+  .additional {
+    width: 100%;
+    border: 1px solid var(--template-primary);
+  }
+  .additional-item {
+    padding: 5px;
+  }
+}
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.mat-select-panel-wrap {
+  width: 100%;
+  .option-with-img {
+    .mat-option-text {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      img {
+        width: 20px;
+        border-radius: 50%;
+      }
+    }
+  }
 }

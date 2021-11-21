@@ -1,5 +1,5 @@
 :host {
-  $bezier:cubic-bezier(0.82, 1.07, 0.85, 1.12);
+  $bezier: cubic-bezier(0.82, 1.07, 0.85, 1.12);
   @keyframes skip-from-right {
     0% {
       transform: translateX(300px);
@@ -25,6 +25,7 @@
     padding: 20px;
     align-items: center;
     background: white;
+    margin-top: 20px;
     .login-image {
       flex: 1;
       border-top-left-radius: 10px;
@@ -56,7 +57,7 @@
   .pointer {
     cursor: pointer;
   }
-  mat-spinner{
+  mat-spinner {
     align-self: center;
   }
 }

@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Add User</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" [formControl]="email" />
+    <mat-icon matSuffix>create</mat-icon>
+    <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="email.value" cdkFocusInitial>Add</button>
+</mat-dialog-actions>

@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app.routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { ActionIconComponent } from './components/action-icon/action-icon.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { HomeComponent } from './pages/home/home.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +19,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import * as firebase from 'firebase/app';
 import { BoardComponent } from './pages/board/board.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { ProjectsComponent } from './pages/projects/projects.component';
+import { CreateProjectComponent } from './components/create-project/create-project.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AddTaskComponent } from './components/add-task/add-task.component';
+import { AddUserComponent } from './components/add-user/add-user.component';
 
 firebase.initializeApp(environment.firebase);
 
@@ -28,8 +33,11 @@ firebase.initializeApp(environment.firebase);
     AppComponent,
     LoginComponent,
     ActionIconComponent,
-    HomeComponent,
     BoardComponent,
+    ProjectsComponent,
+    CreateProjectComponent,
+    AddTaskComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +53,8 @@ firebase.initializeApp(environment.firebase);
     MatButtonModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatDialogModule,
+    DragDropModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

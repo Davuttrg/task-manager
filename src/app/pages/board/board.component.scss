@@ -1,0 +1,133 @@
+:host {
+  .board-content {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - var(--toolbar-height));
+    mat-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .task-content {
+      width: 100%;
+      height: 100%;
+      .board-sections {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 30px;
+        .section {
+          min-width: 300px;
+          flex: 1;
+          max-width: 400px;
+          margin: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          .section-title {
+            font-weight: 700;
+            color: var(--template-text-color);
+          }
+          .task-list {
+            min-height: 60px;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            display: block;
+          }
+        }
+      }
+      .project-section {
+        width: 80%;
+        margin: auto;
+        border-radius: 5px;
+        .project-row {
+          display: flex;
+          height: 36px;
+          flex-direction: row;
+          justify-content: space-between;
+          width: 100%;
+          background-color: white;
+          margin-top: 10px;
+          padding: 10px 20px;
+          align-items: center;
+          .project-navigate {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            gap: 10px;
+            > div {
+              font-weight: 600;
+              color: var(--template-text-color);
+              &:hover {
+                opacity: 0.8;
+                cursor: pointer;
+              }
+            }
+          }
+          .project-users {
+            display: flex;
+            flex-direction: row-reverse;
+            height: 36px;
+            .user {
+              height: 36px;
+              width: 36px;
+              position: relative;
+              margin-left: -3px;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 1px solid var(--template-background-primary);
+              }
+            }
+            .user-add {
+              margin-left: 5px;
+              border: 1px solid var(--template-primary);
+              width: 36px;
+              height: 36px;
+              border-radius: 50%;
+
+              &:hover {
+                opacity: 0.8;
+                cursor: pointer;
+              }
+
+              mat-icon {
+                width: 36px;
+                height: 36px;
+                padding-right: 5px;
+                padding-top: 3px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .non-project {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+      background: white;
+      box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+      z-index: 2;
+      .create-project {
+        width: 100%;
+        text-align-last: center;
+        button {
+          width: 150px;
+          height: 70px;
+        }
+      }
+    }
+  }
+  .create-project-image {
+    width: 100%;
+    opacity: 0.8;
+  }
+}
