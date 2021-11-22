@@ -172,4 +172,44 @@ export class BoardComponent implements OnInit {
   triggerNewProject() {
     this._firebase.$createProject.next();
   }
+  editTask(item: any) {
+    const dialogRef = this._dialog.open(AddTaskComponent, {
+      width: '50%',
+      height: '60%',
+      data: { users: this.users, task: item },
+    });
+    dialogRef
+      .afterClosed()
+      .toPromise()
+      .then(async (result) => {
+        if (result) {
+          console.log('result', result);
+          result.task.name = result.data.name;
+          result.task.description = result.data.description;
+          result.task.assignee = result.data.assignee;
+          await this._firebase.updateData<Task>(
+            'task',
+            result.task,
+            result.task.id
+          );
+          let index;
+          switch (result.task.status) {
+            case 'to_do':
+              index = this.toDo.findIndex((item) => item.id == result.task.id);
+              this.toDo[index] = result.task;
+              break;
+            case 'in_progress':
+              index = this.inProgress.findIndex(
+                (item) => item.id == result.task.id
+              );
+              this.inProgress[index] = result.task;
+              break;
+            case 'done':
+              index = this.done.findIndex((item) => item.id == result.task.id);
+              this.done[index] = result.task;
+              break;
+          }
+        }
+      });
+  }
 }
