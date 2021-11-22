@@ -50,6 +50,7 @@ export class AuthService {
     const auth = getAuth();
     onAuthStateChanged(auth, async (user) => {
       if (user) {
+        console.log("getState  user :",user)
         let fireUser = await this._firebase.getUser(user.uid);
         this.me = fireUser;
         this.$getactiveUser.next(this.me);

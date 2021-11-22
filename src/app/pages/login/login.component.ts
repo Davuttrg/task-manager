@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     this.createForms();
     this._auth.isLoggedIn().subscribe((response) => {
       if (response) {
-        this._router.navigate(['/home']);
+        this._router.navigate(['/board']);
       }
     });
   }
