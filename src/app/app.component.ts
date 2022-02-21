@@ -23,13 +23,6 @@ export class AppComponent {
     private _alert: AlertifyService
   ) {}
   async ngOnInit() {
-    // let users = await this.firebase.getData<User>('user');
-    // console.log(users);
-    // users.forEach(async (doc) => {
-    //   let user = doc.data();
-    //   user.username = 'test davut5';
-    //   await this.firebase.deleteData('user', doc.id);
-    // });
     this.subscribeNewProject();
     await this._auth.getState();
     this._auth.$getactiveUser.pipe().subscribe((data: any) => {
@@ -59,13 +52,8 @@ export class AppComponent {
         'in'
       );
     }
-
-    // console.log(userProjects.map((item) => item.projectId));
-
-    console.log(this.projects);
   }
   login() {
-    console.log('login');
     this._router.navigate(['login']);
   }
   logOut() {
